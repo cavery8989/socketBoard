@@ -18,7 +18,7 @@ rm -rf ./buildTemp
 echo "pushing to github"
 git add .
 git commit -m "front end deploy"
-git push origin gh-pages
+git push --force origin gh-pages
 
 echo "Cleaning up.."
 git checkout master
