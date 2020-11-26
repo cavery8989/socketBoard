@@ -5,10 +5,12 @@ var bindEvents = require('./socket/bindEvents')
 
 var http = require('http').createServer(app);
 
+var origin = process.env.NODE_ENV === 'production' ? "https://cavery8989.github.io/" : "http://localhost:3001"
+
 
 const io = require("socket.io")(http, {
     cors: {
-      origin: ["http://localhost:3001", "https://cavery8989.github.io/"],
+      origin: 'https://cavery8989.github.io',
       methods: ["GET", "POST"]
     }
   });
