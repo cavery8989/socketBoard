@@ -85,7 +85,7 @@ function App() {
 
   return (
     <div className="App">
-      hat
+      Draw stuff :)
       <canvas
         width={`${300 * scale}px`}
         height={`${150 * scale}px`}
