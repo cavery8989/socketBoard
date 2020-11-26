@@ -8,7 +8,7 @@ var http = require('http').createServer(app);
 
 const io = require("socket.io")(http, {
     cors: {
-      origin: ["http://localhost:3001", "https://cavery8989.github.io/socketBoard/"],
+      origin: ["http://localhost:3001", "https://cavery8989.github.io/"],
       methods: ["GET", "POST"]
     }
   });
