@@ -106,7 +106,7 @@ export const Canvas = () => {
 
 
   return (
-    <div>
+    <div className="canvas">
       <canvas
         width={`${canvasWidth}px`}
         height={`${canvasHeight}px`}
@@ -118,8 +118,10 @@ export const Canvas = () => {
         }}
         className={"canvas"}
       />
+      <div className="canvas-buttons">
       <Button onclick={handleClear}>Clear</Button>
       <Button onclick={handleExit}>Exit</Button>
+      </div>
     </div>
   );
 }
