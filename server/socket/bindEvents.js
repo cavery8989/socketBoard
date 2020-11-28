@@ -19,13 +19,11 @@ const bindEvents = (socket, io) => {
     })
 
     socket.on('drawing', (data) => { 
-        console.log('drawing')
         const room = getRoom(socket)
         socket.to(room).emit('drawing', data)
     })
 
     socket.on('clearCanvas', () => {
-        console.log('clearCanvas')
         socket.to(getRoom(socket)).emit('clearCanvas')
     })
 
@@ -39,5 +37,4 @@ const bindEvents = (socket, io) => {
     return socket
 }
 const getRoom = (socket) => [...socket.rooms].filter(n => n !== socket.id)[0]
-const roomExists = (room, io) => io.sockets.adapter.rooms.includes(n => n === room) 
 module.exports = bindEvents
