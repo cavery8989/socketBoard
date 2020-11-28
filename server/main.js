@@ -6,7 +6,9 @@ var bindEvents = require('./socket/bindEvents')
 
 var http = require('http').createServer(app);
 
-var origin = process.env.NODE_ENV === 'production' ? process.env.CLIENT_ORIGIN : "http://localhost:3001"
+var PORT = process.env.PORT || 3001
+
+var origin = process.env.NODE_ENV === 'production' ? process.env.CLIENT_ORIGIN : "http://localhost:3000"
 
 const io = require("socket.io")(http, {
     cors: {
@@ -17,7 +19,7 @@ const io = require("socket.io")(http, {
 
 io.on('connection', (socket) => {
     console.log('there was a connection')
-    bindEvents(socket)
+    bindEvents(socket, io)
    
 })
 
@@ -26,6 +28,6 @@ app.get('/pizza', (req, res) => {
 })  
 
 
-http.listen(process.env.PORT || 3000, () => {
-  console.log('listening on *:3000');
+http.listen(PORT, () => {
+  console.log(`listening on *:${PORT}`);
 });

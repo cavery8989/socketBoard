@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #cc7b29;;
 }
 
 
@@ -17,11 +17,7 @@
   color: #61dafb;
 }
 
-.canvas {
 
-  background-color: white;
-  border: 1px solid black;
-}
 
 @keyframes App-logo-spin {
   from {
