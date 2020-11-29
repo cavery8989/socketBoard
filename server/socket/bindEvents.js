@@ -11,7 +11,9 @@ const bindEvents = (socket, io) => {
         console.log('handleJoin')
         const rooms = io.sockets.adapter.rooms
         if(rooms.has(room)) {
+            console.log(rooms[room])
             socket.join(room)
+            socket.broadcast.emit('playerJoined')
             socket.emit('confirmGameJoined', room)
         } else {
             socket.emit('gameNotFound', room)

@@ -51,16 +51,19 @@ export const NewGameModel: React.FC<NewGameProps> = ({ show }) => {
 
   return show ? (
     <Modal>
-      <div className="new-game">
+      <>
         <Button onclick={handleStartGame}>Start new game</Button>
         Join existing game
         {showRoomNotFound && (
           <span style={{ color: "red" }}>Room not Found</span>
         )}
-        <input onChange={handleJoinKeyChange} type="text" placeholder="paste invite code..."/>
+        <input
+          onChange={handleJoinKeyChange}
+          type="text"
+          placeholder="paste invite code..."
+        />
         <Button onclick={handleJoinGame}>Join existing game</Button>
-        
-      </div>
+      </>
     </Modal>
   ) : null;
 };

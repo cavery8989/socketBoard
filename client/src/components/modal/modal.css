@@ -7,3 +7,14 @@
     align-items: center;
     position: absolute;
 }
+
+.modal-content {
+        padding: 20px;
+        height: 200px;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        background-color: #282c34;
+        border-radius: 7px;
+        border: 1px solid white;    
+}
