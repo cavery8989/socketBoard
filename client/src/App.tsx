@@ -5,6 +5,7 @@ import { NewGameModel } from "./components/newGameModal/newGame";
 import "./App.css";
 import { useAppState } from "./hooks/useApplicationState";
 import { WaitingModal } from "./components/waitingModal/waitingModal";
+import { GameView } from "./components/gameView/gameView";
 
 function App() {
   const {
@@ -13,9 +14,8 @@ function App() {
   return (
     <div className="App">
       <h3> Draw stuff... :)</h3>
-      <Canvas />
-      <NewGameModel show={clientRole === null} />
-      {gameState === 'WAITING_FOR_PLAYER' && <WaitingModal/>}
+      <GameView/>
+      
     </div>
   );
 }
