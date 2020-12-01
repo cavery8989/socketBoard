@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Socket } from "socket.io-client";
 import { useAppState } from "../../hooks/useApplicationState";
 import { useSocket } from "../../hooks/useSocket";
 import { bindSocket } from "../../socketsHelpers";

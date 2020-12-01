@@ -8,11 +8,12 @@ export const GameView = () => {
   const {
     state: { clientRole, gameState },
   } = useAppState();
+  console.log(clientRole);
   return (
-    <div>
+    <>
       <Canvas />
-      {clientRole && <NewGameModel />}
+      {clientRole === null && <NewGameModel />}
       {gameState === "WAITING_FOR_PLAYER" && <WaitingModal />}
-    </div>
+    </>
   );
 };
