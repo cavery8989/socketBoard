@@ -3,16 +3,16 @@ const bindEvents = (socket, io) => {
     socket.on('createRoom', (room) => {
         console.log("Creating ", room)
         socket.join(room)
-      
+
         socket.emit('confirmGameCreated', room)
     })
 
     socket.on('joinGame', (room) => {
         console.log('handleJoin')
         const rooms = io.sockets.adapter.rooms
-        if(rooms.has(room)) {
-            console.log(rooms[room])
+        if (rooms.has(room)) {
             socket.join(room)
+            console.log('player joined')
             socket.broadcast.emit('playerJoined')
             socket.emit('confirmGameJoined', room)
         } else {
@@ -20,13 +20,29 @@ const bindEvents = (socket, io) => {
         }
     })
 
-    socket.on('drawing', (data) => { 
+    socket.on('drawing', (data) => {
         const room = getRoom(socket)
         socket.to(room).emit('drawing', data)
     })
 
     socket.on('clearCanvas', () => {
         socket.to(getRoom(socket)).emit('clearCanvas')
+    })
+
+    socket.on('startGameGuest', () => {
+        socket.to(getRoom(socket)).emit('startGameGuest')
+    })
+
+    socket.on('hostTurnOver', () => {
+        socket.to(getRoom(socket)).emit('hostTurnOver')
+    })
+
+    socket.on('guestTurnOver', () => {
+        socket.to(getRoom(socket)).emit('guestTurnOver')
+    })
+
+    socket.on('gameOver', () => {
+        socket.to(getRoom(socket)).emit('gameOver')
     })
 
     socket.on('leaveGame', () => {

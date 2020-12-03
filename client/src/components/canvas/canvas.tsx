@@ -10,7 +10,15 @@ type Pos = {
   y: number;
 };
 
-export const Canvas = () => {
+type CanvasProps = {
+  playerLiftedPen: () => void;
+  playerActive: boolean;
+};
+
+export const Canvas: React.FC<CanvasProps> = ({
+  playerLiftedPen,
+  playerActive,
+}) => {
   const canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
   const [drawing, setDrawing] = useState(false);
   const [prevPos, setPrevPos] = useState<Pos>({ x: 0, y: 0 });
@@ -87,19 +95,24 @@ export const Canvas = () => {
 
   const handleMouseUp = () => {
     setDrawing(false);
+    if (playerActive) {
+      playerLiftedPen();
+    }
   };
 
   const handleMouseDown = (
     e: React.MouseEvent<HTMLCanvasElement, MouseEvent>
   ) => {
-    setPrevPos({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
-    setDrawing(true);
+    if(playerActive) {
+      setPrevPos({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
+      setDrawing(true);
+    }
   };
 
-  const handleClear = () => {
-    clearCanvas();
-    socket.emit("clearCanvas");
-  };
+  // const handleClear = () => {
+  //   clearCanvas();
+  //   socket.emit("clearCanvas");
+  // };
 
   const handleExit = () => {
     socket.emit("leaveGame");
@@ -120,7 +133,7 @@ export const Canvas = () => {
         className={"canvas"}
       />
       <div className="canvas-buttons">
-        <Button onclick={handleClear}>Clear</Button>
+        {/* <Button onclick={handleClear}>Clear</Button> */}
         <Button onclick={handleExit}>Exit</Button>
       </div>
     </div>
