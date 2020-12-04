@@ -50,7 +50,7 @@ export const Canvas: React.FC<CanvasProps> = ({
       ctx.lineWidth = 3;
       ctx.lineJoin = "round";
       ctx.lineCap = "round";
-      ctx.strokeStyle = "#00CC99";
+      ctx.strokeStyle = "#000";
     }
 
     const unSubscribers = [
