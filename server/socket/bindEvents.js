@@ -29,12 +29,12 @@ const bindEvents = (socket, io) => {
         socket.to(getRoom(socket)).emit('clearCanvas')
     })
 
-    socket.on('startGameGuest', () => {
-        socket.to(getRoom(socket)).emit('startGameGuest')
+    socket.on('startGameGuest', (data) => {
+        socket.to(getRoom(socket)).emit('startGameGuest',data)
     })
 
-    socket.on('hostTurnOver', () => {
-        socket.to(getRoom(socket)).emit('hostTurnOver')
+    socket.on('hostTurnOver', (data) => {
+        socket.to(getRoom(socket)).emit('hostTurnOver', data)
     })
 
     socket.on('guestTurnOver', () => {
@@ -43,6 +43,14 @@ const bindEvents = (socket, io) => {
 
     socket.on('gameOver', () => {
         socket.to(getRoom(socket)).emit('gameOver')
+    })
+
+    socket.on('guestTurnOver', () => {
+        socket.to(getRoom(socket)).emit('guestTurnOver')
+    })
+
+    socket.on('updateGuestTurns', (data) => {
+        socket.to(getRoom(socket)).emit('updateGuestTurns', data)
     })
 
     socket.on('leaveGame', () => {

@@ -55,7 +55,6 @@ export const Canvas: React.FC<CanvasProps> = ({
 
     const unSubscribers = [
       bindSocket(socket, "drawing", (data) => {
-        console.log(data);
         const ctx = canvasCtxRef.current;
         if (ctx) {
           paint(ctx, data.lineStart, data.lineEnd);

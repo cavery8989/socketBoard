@@ -16,6 +16,8 @@ export const GameView = () => {
     startGame,
     setGameOver,
     startHostTurn,
+    setNewTurns,
+    endGuestTurn,
   } = useAppState();
 
   const { socket } = useSocket();
@@ -41,28 +43,35 @@ export const GameView = () => {
         // set game over
         setGameOver();
       }),
+      bindSocket(socket, "updateGuestTurns", ({ turnsLeft }) => {
+        setNewTurns(turnsLeft);
+      }),
     ];
-    return unSub.forEach((unSub) => unSub());
+    return () => unSub.forEach((unSub) => unSub());
   }, [socket, startGuestTurn, setGameOver, startGame, startHostTurn]);
 
   useEffect(() => {
+    console.log(playerTurn);
     if (clientRole === "host") {
       if (gameState === "OVER") {
         socket.emit("gameOver");
+      } else if (playerTurn === "guest") {
+        socket.emit("hostTurnOver", { turnsLeft });
       } else {
-        socket.emit("clientTurnOver");
+        socket.emit("updateGuestTurns", { turnsLeft });
       }
     }
-  }, [turnsLeft, clientRole, socket, gameState]);
+  }, [turnsLeft, clientRole, socket, gameState, playerTurn]);
 
   const handlePlayerLiftedPen = useCallback(() => {
     if (clientRole === "host") {
       endTurn();
     } else if (clientRole === "guest") {
       // broadcast turn over
+      endGuestTurn();
       socket.emit("guestTurnOver");
     }
-  }, [endTurn, socket, clientRole]);
+  }, [endTurn, socket, clientRole, endGuestTurn]);
 
   return (
     <>
@@ -70,12 +79,14 @@ export const GameView = () => {
         {gameState === "IN_PROGRESS" && (
           <>
             <h3>Draw a {subject}</h3>
+            <h4>Turns left: {turnsLeft}</h4>
             <p>
               Its {isPlayersTurn(clientRole, playerTurn) ? "your" : "their"}{" "}
               turn
             </p>
           </>
         )}
+        {gameState === "OVER" && <h3>Look what you made ! :D</h3>}
       </div>
       <Canvas
         playerLiftedPen={handlePlayerLiftedPen}

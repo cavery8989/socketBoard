@@ -57,7 +57,7 @@ export const useAppState = () => {
     },
     endClientTurn: () => {
       setState((oldState) => {
-        if (oldState.turnsLeft > 0) {
+        if (oldState.turnsLeft > 1) {
           return {
             ...oldState,
             gameState: "IN_PROGRESS",
@@ -78,7 +78,7 @@ export const useAppState = () => {
     startHostTurn: () => {
       setState((oldState) => {
         const currentTurns = oldState.turnsLeft - 1
-        if (currentTurns > 0) {
+        if (currentTurns > 1) {
           return {
             ...oldState,
             playerTurn: 'host',
@@ -92,7 +92,9 @@ export const useAppState = () => {
     setGameOver: () => {
       setState((oldState) => ({ ...oldState, gameState: "OVER" }));
     },
-
+    setNewTurns: (turnsLeft) => {
+      setState((oldState) => ({ ...oldState, turnsLeft }));
+    }
   };
 };
 

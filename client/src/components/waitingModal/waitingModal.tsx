@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import { useAppState } from "../../hooks/useApplicationState";
+
 import { Modal } from "../modal/modal";
 
 export const WaitingModal = () => {
