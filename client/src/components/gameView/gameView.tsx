@@ -23,7 +23,7 @@ export const GameView = () => {
   const { socket } = useSocket();
 
   useEffect(() => {
-    const unSub = [
+    const unbind = [
       bindSocket(socket, "playerJoined", () => {
         console.log("player joined");
         const newSubject = getSubject();
@@ -47,11 +47,10 @@ export const GameView = () => {
         setNewTurns(turnsLeft);
       }),
     ];
-    return () => unSub.forEach((unSub) => unSub());
-  }, [socket, startGuestTurn, setGameOver, startGame, startHostTurn]);
+    return () => unbind.forEach((unbind) => unbind());
+  }, [socket, startGuestTurn, setGameOver, startGame, startHostTurn, setNewTurns]);
 
   useEffect(() => {
-    console.log(playerTurn);
     if (clientRole === "host") {
       if (gameState === "OVER") {
         socket.emit("gameOver");
