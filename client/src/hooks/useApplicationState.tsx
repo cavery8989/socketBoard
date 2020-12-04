@@ -55,7 +55,7 @@ export const useAppState = () => {
     startGame: (subject: string) => {
       setState((oldState) => ({ ...oldState, gameState: "IN_PROGRESS", subject }));
     },
-    endClientTurn: () => {
+    guestTurnEnded: () => {
       setState((oldState) => {
         if (oldState.turnsLeft > 1) {
           return {

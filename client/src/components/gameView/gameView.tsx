@@ -11,7 +11,7 @@ import "./gameView.css";
 export const GameView = () => {
   const {
     state: { clientRole, gameState, playerTurn, turnsLeft, subject },
-    endClientTurn: endTurn,
+    guestTurnEnded: endTurn,
     startGuestTurn,
     startGame,
     setGameOver,
@@ -57,10 +57,12 @@ export const GameView = () => {
       } else if (playerTurn === "guest") {
         socket.emit("hostTurnOver", { turnsLeft });
       } else {
+        console.log([ clientRole, socket, gameState, playerTurn])
         socket.emit("updateGuestTurns", { turnsLeft });
       }
     }
-  }, [turnsLeft, clientRole, socket, gameState, playerTurn]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clientRole, socket, gameState, playerTurn]);
 
   const handlePlayerLiftedPen = useCallback(() => {
     if (clientRole === "host") {
